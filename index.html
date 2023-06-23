@@ -10,12 +10,141 @@
     <title>Setting Relations Demo</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="demo.css">
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
-    <!--[if lt IE 7]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
-    <![endif]-->
+    <h4>General Settings</h4>
+    <table class="table__settings">
+      <tbody>
+        <tr>
+          <td>
+            <span class="toggle">
+              <label for="wordluxe-mode">
+                <input type="checkbox" id="wordluxe-mode">
+                <span class="toggle-button"></span>
+              </label>
+            </span>
+          </td>
+          <td>
+            <label for="wordluxe-mode" class="setting-description">
+              Wordluxe mode
+            </label>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <span class="toggle">
+              <label for="wordle-mode">
+                <input type="checkbox" id="wordle-mode">
+                <span class="toggle-button"></span>
+              </label>
+            </span>
+          </td>
+          <td>
+            <label for="wordle-mode" class="setting-description">
+              Wordle mode
+            </label>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <span class="toggle">
+              <label for="wordle-hard-mode">
+                <input type="checkbox" id="wordle-hard-mode">
+                <span class="toggle-button"></span>
+              </label>
+            </span>
+          </td>
+          <td>
+            <label for="wordle-hard-mode" class="setting-description">
+              Wordle hard mode
+            </label>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h4>Granular Settings</h4>
+    <table class="table__settings">
+      <tbody>
+        <tr>
+          <td>
+            <span class="toggle">
+              <label for="prediction-bars">
+                <input type="checkbox" id="prediction-bars">
+                <span class="toggle-button"></span>
+              </label>
+            </span>
+          </td>
+          <td>
+            <label for="prediction-bars" class="setting-description">
+              Show prediction bars
+            </label>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <span class="toggle">
+              <label for="copy-perfect-match">
+                <input type="checkbox" id="copy-perfect-match">
+                <span class="toggle-button"></span>
+              </label>
+            </span>
+          </td>
+          <td>
+            <label for="copy-perfect-match" class="setting-description">
+              Auto-copy perfect matches to next row
+            </label>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label for="lock-copied-match">
+              <span class="toggle">
+                <input type="checkbox" id="lock-copied-match">
+                <span class="toggle-button"></span>
+              </span>
+            </label>
+          </td>
+          <td>
+            <label for="lock-copied-match" class="setting-description">
+              Auto-lock copied matches
+            </label>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label for="use-revealed-hint">
+              <span class="toggle">
+                <input type="checkbox" id="use-revealed-hint">
+                <span class="toggle-button"></span>
+              </span>
+            </label>
+          </td>
+          <td>
+            <label for="use-revealed-hint" class="setting-description">
+              Revealed hints must be used in subsequent guesses
+            </label>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label for="allow-plurals">
+              <span class="toggle">
+                <input type="checkbox" id="allow-plurals">
+                <span class="toggle-button"></span>
+              </span>
+            </label>
+          </td>
+          <td>
+            <label for="allow-plurals" class="setting-description">
+              Allow plurals and words ending with 's' in solution set
+            </label>
+          </td>
+        </tr>
+      </tbody>
+    </table>
     <script src="demo.js" async defer type="module"></script>
   </body>
 </html>
