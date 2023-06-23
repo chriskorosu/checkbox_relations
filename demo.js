@@ -14,7 +14,7 @@ const checkbox_relations = {
       'child2': true,
       'child3': true
     },
-    parents: {}
+    parents: []
   },
   'parent2': {
     children: {
@@ -24,7 +24,7 @@ const checkbox_relations = {
       'child4': false,
       'child5': false
     },
-    parents: {}
+    parents: []
   },
   'parent3': {
     children: {
@@ -34,44 +34,26 @@ const checkbox_relations = {
       'child4': true,
       'child5': false
     },
-    parents: {}
+    parents: []
   },
   'child1': {
     children: {},
-    parents: {
-      'parent1': true,
-      'parent2': false,
-      'parent3': false
-    }
+    parents: ['parent1', 'parent2', 'parent3']
   },
   'child2': {
     children: {},
-    parents: {
-      'parent1': true,
-      'parent2': false,
-      'parent3': false
-    }
+    parents: ['parent1', 'parent2', 'parent3']
   },
   'child3': {
     children: {},
-    parents: {
-      'parent1': true,
-      'parent2': false,
-      'parent3': false
-    }
+    parents: ['parent1', 'parent2', 'parent3']
   },
   'child4': {
     children: {},
-    parents: {
-      'parent2': false,
-      'parent3': true
-    }
+    parents: ['parent2', 'parent3']
   },
   'child5': {
     children: {},
-    parents: {
-      'parent2': false,
-      'parent3': false
-    }
+    parents: ['parent2', 'parent3']
   }
 }
