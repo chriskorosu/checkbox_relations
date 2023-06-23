@@ -8,70 +8,70 @@
 // const ALLOW_PLURALS = 7
 
 const checkbox_relations = {
-  'wordluxe-mode': {
+  'parent1': {
     children: {
-      'prediction-bars': true,
-      'copy-perfect-match': true,
-      'lock-copied-match': true
+      'child1': true,
+      'child2': true,
+      'child3': true
     },
     parents: {}
   },
-  'wordle-mode': {
+  'parent2': {
     children: {
-      'prediction-bars': false,
-      'copy-perfect-match': false,
-      'lock-copied-match': false,
-      'use-revealed-hint': false,
-      'allow-plurals': false
+      'child1': false,
+      'child2': false,
+      'child3': false,
+      'child4': false,
+      'child5': false
     },
     parents: {}
   },
-  'wordle-hard-mode': {
+  'parent3': {
     children: {
-      'prediction-bars': false,
-      'copy-perfect-match': false,
-      'lock-copied-match': false,
-      'use-revealed-hint': true,
-      'allow-plurals': false
+      'child1': false,
+      'child2': false,
+      'child3': false,
+      'child4': true,
+      'child5': false
     },
     parents: {}
   },
-  'prediction-bars': {
+  'child1': {
     children: {},
     parents: {
-      'wordluxe-mode': true,
-      'wordle-mode': false,
-      'wordle-hard-mode': false
+      'parent1': true,
+      'parent2': false,
+      'parent3': false
     }
   },
-  'copy-perfect-match': {
+  'child2': {
     children: {},
     parents: {
-      'wordluxe-mode': true,
-      'wordle-mode': false,
-      'wordle-hard-mode': false
+      'parent1': true,
+      'parent2': false,
+      'parent3': false
     }
   },
-  'lock-copied-match': {
+  'child3': {
     children: {},
     parents: {
-      'wordluxe-mode': true,
-      'wordle-mode': false,
-      'wordle-hard-mode': false
+      'parent1': true,
+      'parent2': false,
+      'parent3': false
     }
   },
-  'use-revealed-hint': {
+  'child4': {
     children: {},
     parents: {
-      'wordle-mode': false,
-      'wordle-hard-mode': true
+      'parent2': false,
+      'parent3': true
     }
   },
-  'allow-plurals': {
+  'child5': {
     children: {},
     parents: {
-      'wordle-mode': false,
-      'wordle-hard-mode': false
+      'parent2': false,
+      'parent3': false
     }
   }
 }
