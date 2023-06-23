@@ -9,7 +9,7 @@
 
 import { RelationalCheckboxes } from "./main.js"
 
-const checkbox_relations = {
+const checkboxRelations = {
   'parent1': {
     children: {
       'child1': true,
@@ -60,4 +60,4 @@ const checkbox_relations = {
   }
 }
 
-new RelationalCheckboxes(checkbox_relations)
+new RelationalCheckboxes(checkboxRelations)

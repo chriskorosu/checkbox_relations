@@ -2,16 +2,16 @@ const RelationalCheckboxes = (function () {
 
   function RelationalCheckboxes (data) {
     if (data) {
-      checkbox_relations = structuredClone(data)
+      checkboxRelations = structuredClone(data)
       attachEventHandlers()
     }
   }
 
-  let checkbox_relations = {}
+  let checkboxRelations = {}
 
   function attachEventHandlers () {
     const topLevelNodes = []
-    for (const key in checkbox_relations) {
+    for (const key in checkboxRelations) {
       topLevelNodes.push(key)
     }
     console.log(topLevelNodes)
