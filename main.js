@@ -23,7 +23,33 @@ const RelationalCheckboxes = (function () {
   }
 
   function genericEventHandler (event) {
-    console.log('wooo: ', event.target.id)
+    const currentCheckbox = event.target
+    const currentCheckboxID = currentCheckbox.id
+    const currentCheckboxState = currentCheckbox.checked
+
+    checkboxRelations[currentCheckboxID].parents.forEach((parentID) => {
+      const requiredStateByParent =
+        checkboxRelations[parentID].children[currentCheckboxID]
+      if (requiredStateByParent === currentCheckboxState) {
+        let parentSatisfied = false
+        for (const childID in checkboxRelations[parentID].children) {
+          const childCheckBoxState = document.getElementById(childID).checked
+          if (checkboxRelations[parentID].children[childID] ===
+            childCheckBoxState) {
+            parentSatisfied = true
+          } else {
+            parentSatisfied = false
+            break
+          }
+        }
+        parentSatisfied ? 
+          document.getElementById(parentID).checked = true :
+          document.getElementById(parentID).checked = false
+      } else {
+        document.getElementById(parentID).checked = false
+      }
+    })
+    
   }
 
   return RelationalCheckboxes
