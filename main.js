@@ -27,6 +27,15 @@ const RelationalCheckboxes = (function () {
     const currentCheckboxID = currentCheckbox.id
     const currentCheckboxState = currentCheckbox.checked
 
+
+    for (const childID in checkboxRelations[currentCheckboxID].children) {
+      const requiredChildState =
+        checkboxRelations[currentCheckboxID].children[childID]
+      if (currentCheckboxState) {
+        document.getElementById(childID).checked = requiredChildState
+      }
+    }
+
     checkboxRelations[currentCheckboxID].parents.forEach((parentID) => {
       const requiredStateByParent =
         checkboxRelations[parentID].children[currentCheckboxID]
