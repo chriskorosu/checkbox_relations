@@ -14,7 +14,9 @@ const checkboxRelations = {
     children: {
       'child1': true,
       'child2': true,
-      'child3': true
+      'child3': true,
+      'parent2': false,
+      'parent3': false
     },
     parents: []
   },
@@ -24,7 +26,9 @@ const checkboxRelations = {
       'child2': false,
       'child3': false,
       'child4': false,
-      'child5': false
+      'child5': false,
+      'parent1': false,
+      'parent3': false
     },
     parents: []
   },
@@ -34,7 +38,9 @@ const checkboxRelations = {
       'child2': false,
       'child3': false,
       'child4': true,
-      'child5': false
+      'child5': false,
+      'parent1': false,
+      'parent2': false
     },
     parents: []
   },
