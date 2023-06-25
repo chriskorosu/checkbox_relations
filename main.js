@@ -26,19 +26,20 @@ const RelationalCheckboxes = (function () {
     const currentCheckboxID = currentCheckbox.id
     const currentCheckboxState = currentCheckbox.checked
 
-
     for (const childID in checkboxRelations[currentCheckboxID].children) {
       const requiredChildState =
         checkboxRelations[currentCheckboxID].children[childID]
       if (currentCheckboxState) {
         document.getElementById(childID).checked = requiredChildState
+        document.getElementById(childID).disabled = false
       }
+      currentCheckbox.disabled = true
     }
 
     checkboxRelations[currentCheckboxID].parents.forEach((parentID) => {
-      const requiredStateByParent =
+      const requiredChildState =
         checkboxRelations[parentID].children[currentCheckboxID]
-      if (requiredStateByParent === currentCheckboxState) {
+      if (requiredChildState === currentCheckboxState) {
         let parentSatisfied = false
         for (const childID in checkboxRelations[parentID].children) {
           const childCheckBoxState = document.getElementById(childID).checked
@@ -50,11 +51,16 @@ const RelationalCheckboxes = (function () {
             break
           }
         }
-        parentSatisfied ? 
-          document.getElementById(parentID).checked = true :
+        if (parentSatisfied) {
+          document.getElementById(parentID).checked = true
+          document.getElementById(parentID).disabled = true
+        } else {
           document.getElementById(parentID).checked = false
+          document.getElementById(parentID).disabled = false
+        }
       } else {
         document.getElementById(parentID).checked = false
+        document.getElementById(parentID).disabled = false
       }
     })
     
