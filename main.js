@@ -14,7 +14,6 @@ const RelationalCheckboxes = (function () {
     for (const key in checkboxRelations) {
       topLevelNodes.push(key)
     }
-    console.log(topLevelNodes)
 
     topLevelNodes.forEach((nodeName) => {
       const currentCheckbox = document.getElementById(nodeName)
