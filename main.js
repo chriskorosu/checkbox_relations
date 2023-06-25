@@ -26,6 +26,8 @@ const RelationalCheckboxes = (function () {
     const currentCheckboxID = currentCheckbox.id
     const currentCheckboxState = currentCheckbox.checked
 
+    // We iterate through all of the current checkbox's children and
+    // check/toggle them as needed. 
     for (const childID in checkboxRelations[currentCheckboxID].children) {
       const requiredChildState =
         checkboxRelations[currentCheckboxID].children[childID]
@@ -33,9 +35,24 @@ const RelationalCheckboxes = (function () {
         document.getElementById(childID).checked = requiredChildState
         document.getElementById(childID).disabled = false
       }
+      // Parents currently get disabled, though this may no longer be needed
+      // with a custom parent.
       currentCheckbox.disabled = true
     }
 
+    // If the current checkbox has parents, we check them all off at the start.
+    // They will be toggled on sequentially later on. If we didn't do this we
+    // could run into the situation where a parent that needs to be toggled
+    // isn't toggled because another one of its children which is a parent of
+    // the current checkbox has yet to be toggled.
+    checkboxRelations[currentCheckboxID].parents.forEach((parentID) => { 
+      document.getElementById(parentID).checked = false
+    })
+
+    // We then go through each of the checkbox's parent one by one. If the
+    // checkbox state matches the parent's required child state, we also go
+    // through the parent's other children. If they all match, we toggle on the
+    // parent. Otherwise, the parent is toggled off.
     checkboxRelations[currentCheckboxID].parents.forEach((parentID) => {
       const requiredChildState =
         checkboxRelations[parentID].children[currentCheckboxID]
