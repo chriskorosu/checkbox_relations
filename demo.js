@@ -7,7 +7,7 @@
 // const USE_REVEALED_HINT = 6
 // const ALLOW_PLURALS = 7
 
-import { RelationalCheckboxes } from './main.js'
+import { relatedCheckboxes } from './main.js'
 
 const checkboxRelations = {
   parent1: {
@@ -68,4 +68,4 @@ const checkboxRelations = {
   }
 }
 
-new RelationalCheckboxes(checkboxRelations)
+relatedCheckboxes(checkboxRelations)

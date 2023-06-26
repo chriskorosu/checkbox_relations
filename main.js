@@ -1,12 +1,10 @@
-const CheckboxRelations = (function () {
-  function CheckboxRelations (data) {
-    if (data) {
-      checkboxRelations = structuredClone(data)
-      attachEventHandlers()
-    }
-  }
-
+function relatedCheckboxes (data) {
   let checkboxRelations = {}
+
+  if (data) {
+    checkboxRelations = structuredClone(data)
+    attachEventHandlers()
+  }
 
   function attachEventHandlers () {
     const topLevelNodes = []
@@ -96,8 +94,6 @@ const CheckboxRelations = (function () {
       document.getElementById('custom').disabled = true
     }
   }
+}
 
-  return CheckboxRelations
-})()
-
-export { CheckboxRelations }
+export { relatedCheckboxes }
