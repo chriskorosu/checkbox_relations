@@ -48,11 +48,15 @@ const RelationalCheckboxes = (function () {
     checkboxRelations[currentCheckboxID].parents.forEach((parentID) => { 
       document.getElementById(parentID).checked = false
     })
+    // We do the same thing with the fall-back parent.
+    document.getElementById('custom').checked = false
 
     // We then go through each of the checkbox's parent one by one. If the
     // checkbox state matches the parent's required child state, we also go
     // through the parent's other children. If they all match, we toggle on the
-    // parent. Otherwise, the parent is toggled off.
+    // parent. Otherwise, the parent is toggled off. We also keep track of
+    // whether any parents were toggled or not.
+    let parentsToggledOn = false
     checkboxRelations[currentCheckboxID].parents.forEach((parentID) => {
       const requiredChildState =
         checkboxRelations[parentID].children[currentCheckboxID]
@@ -71,6 +75,7 @@ const RelationalCheckboxes = (function () {
         if (parentSatisfied) {
           document.getElementById(parentID).checked = true
           document.getElementById(parentID).disabled = true
+          parentsToggledOn = true
         } else {
           document.getElementById(parentID).checked = false
           document.getElementById(parentID).disabled = false
@@ -80,6 +85,17 @@ const RelationalCheckboxes = (function () {
         document.getElementById(parentID).disabled = false
       }
     })
+
+    // If current checkbox has no parents, it must be a parent, and it must
+    // have been toggled on (because toggling off is disabled).
+    if (checkboxRelations[currentCheckboxID].parents.length === 0) {
+      parentsToggledOn = true
+    }
+    // If no parents were toggled on we toggle on the fall-back parent.
+    if (!parentsToggledOn) {
+      document.getElementById('custom').checked = true
+      document.getElementById('custom').disabled = true
+    }
     
   }
 
