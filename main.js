@@ -1,6 +1,6 @@
-const RelationalCheckboxes = (function () {
+const CheckboxRelations = (function () {
 
-  function RelationalCheckboxes (data) {
+  function CheckboxRelations (data) {
     if (data) {
       checkboxRelations = structuredClone(data)
       attachEventHandlers()
@@ -99,7 +99,7 @@ const RelationalCheckboxes = (function () {
     
   }
 
-  return RelationalCheckboxes
+  return CheckboxRelations
 })()
 
-export { RelationalCheckboxes }
+export { CheckboxRelations }
