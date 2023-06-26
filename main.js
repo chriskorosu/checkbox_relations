@@ -1,5 +1,4 @@
 const CheckboxRelations = (function () {
-
   function CheckboxRelations (data) {
     if (data) {
       checkboxRelations = structuredClone(data)
@@ -27,7 +26,7 @@ const CheckboxRelations = (function () {
     const currentCheckboxState = currentCheckbox.checked
 
     // We iterate through all of the current checkbox's children and
-    // check/toggle them as needed. 
+    // check/toggle them as needed.
     for (const childID in checkboxRelations[currentCheckboxID].children) {
       const requiredChildState =
         checkboxRelations[currentCheckboxID].children[childID]
@@ -45,7 +44,7 @@ const CheckboxRelations = (function () {
     // could run into the situation where a parent that needs to be toggled
     // isn't toggled because another one of its children which is a parent of
     // the current checkbox has yet to be toggled.
-    checkboxRelations[currentCheckboxID].parents.forEach((parentID) => { 
+    checkboxRelations[currentCheckboxID].parents.forEach((parentID) => {
       document.getElementById(parentID).checked = false
     })
     // We do the same thing with the fall-back parent.
@@ -96,7 +95,6 @@ const CheckboxRelations = (function () {
       document.getElementById('custom').checked = true
       document.getElementById('custom').disabled = true
     }
-    
   }
 
   return CheckboxRelations
