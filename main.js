@@ -1,4 +1,4 @@
-function relatedCheckboxes (data) {
+function addCheckboxRelations (data) {
   let checkboxRelations = {}
 
   if (data) {
@@ -96,4 +96,4 @@ function relatedCheckboxes (data) {
   }
 }
 
-export { relatedCheckboxes }
+export { addCheckboxRelations }
