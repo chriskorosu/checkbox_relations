@@ -20,15 +20,12 @@ function addCheckboxRelations (data) {
 
   function genericEventHandler (event) {
     const currentCheckbox = event.target
-    const currentCheckboxID = currentCheckbox.id
-    const currentCheckboxState = currentCheckbox.checked
-
     // We iterate through all of the current checkbox's children and
     // check/toggle them as needed.
-    for (const childID in checkboxRelations[currentCheckboxID].children) {
+    for (const childID in checkboxRelations[currentCheckbox.id].children) {
       const requiredChildState =
-        checkboxRelations[currentCheckboxID].children[childID]
-      if (currentCheckboxState) {
+        checkboxRelations[currentCheckbox.id].children[childID]
+      if (currentCheckbox.checked) {
         document.getElementById(childID).checked = requiredChildState
         document.getElementById(childID).disabled = false
       }
@@ -42,7 +39,7 @@ function addCheckboxRelations (data) {
     // could run into the situation where a parent that needs to be toggled
     // isn't toggled because another one of its children which is a parent of
     // the current checkbox has yet to be toggled.
-    checkboxRelations[currentCheckboxID].parents.forEach((parentID) => {
+    checkboxRelations[currentCheckbox.id].parents.forEach((parentID) => {
       document.getElementById(parentID).checked = false
     })
     // We do the same thing with the fall-back parent.
@@ -54,10 +51,10 @@ function addCheckboxRelations (data) {
     // parent. Otherwise, the parent is toggled off. We also keep track of
     // whether any parents were toggled or not.
     let parentsToggledOn = false
-    checkboxRelations[currentCheckboxID].parents.forEach((parentID) => {
+    checkboxRelations[currentCheckbox.id].parents.forEach((parentID) => {
       const requiredChildState =
-        checkboxRelations[parentID].children[currentCheckboxID]
-      if (requiredChildState === currentCheckboxState) {
+        checkboxRelations[parentID].children[currentCheckbox.id]
+      if (requiredChildState === currentCheckbox.checked) {
         let parentSatisfied = false
         for (const childID in checkboxRelations[parentID].children) {
           const childCheckBoxState = document.getElementById(childID).checked
@@ -85,7 +82,7 @@ function addCheckboxRelations (data) {
 
     // If current checkbox has no parents, it must be a parent, and it must
     // have been toggled on (because toggling off is disabled).
-    if (checkboxRelations[currentCheckboxID].parents.length === 0) {
+    if (checkboxRelations[currentCheckbox.id].parents.length === 0) {
       parentsToggledOn = true
     }
     // If no parents were toggled on we toggle on the fall-back parent.
