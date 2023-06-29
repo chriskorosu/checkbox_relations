@@ -93,8 +93,8 @@ function addCheckboxRelations (data) {
 
   function handleParentInput (event) {
     const targetBox = event.target
-    const allParents = checkboxRelations.parents
-    const fallbackID = allParents[allParents.length - 1]
+    const allParentIDs = checkboxRelations.parents
+    const fallbackID = allParentIDs[allParentIDs.length - 1]
 
     if (targetBox.checked) {
       // We store the checked state under the parent's id.
