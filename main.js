@@ -92,7 +92,49 @@ function addCheckboxRelations (data) {
   }
 
   function handleParentInput (event) {
-    console.log('parent handled')
+    const targetBox = event.target
+    const allParents = checkboxRelations.parents
+    const fallbackID = allParents[allParents.length - 1]
+
+    if (targetBox.checked) {
+      // We store the checked state under the parent's id.
+      localStorage.setItem(targetBox.id, 'true')
+      // We uncheck all other checked parents.
+      for (const parentID of checkboxRelations.parents) {
+        const parent = document.getElementById(parentID)
+        if (parentID !== targetBox.id && parent.checked) {
+          parent.checked = false
+          localStorage.setItem(parentID, 'false')
+        }
+      }
+      // If target is the fallback...
+      if (targetBox.id === fallbackID ) {
+        const allChildIDs = getAllChildIDs()
+        const fallbackValues = JSON.parse(localStorage.getItem('last_fallback'))
+        for (let i = 0; i < allChildIDs.length; i++) {
+          const child = document.getElementById(allChildIDs[i])
+          if (child.checked != fallbackValues[i]) {
+            child.checked = fallbackValues[i]
+            localStorage.setItem(allChildIDs[i], fallbackValues[i].toString())
+          }
+        }
+      } else { // ... else if it's not the fallback ...
+        localStorage.setItem('last_parent', targetBox.id)
+        const allChildIDs = getAllChildIDs()
+        const parentIndex = checkboxRelations.parents.indexOf(targetBox.id)
+        for (let i = 0; i < allChildIDs.length; i++) {
+          const child = document.getElementById(allChildIDs[i])
+          const requiredChildState =
+            checkboxRelations.children[child.id][parentIndex]
+          if (child.checked != requiredChildState) {
+            child.checked = requiredChildState
+            localStorage.setItem(allChildIDs[i], requiredChildState.toString())
+          }
+        }
+      }
+
+    } else { // if targetBox.unchecked
+    }
   }
 
   function handleChildInput (event) {
