@@ -7,16 +7,27 @@ function addCheckboxRelations (data) {
     attachEventHandlers()
   }
 
-  // Returns an array of all the checkbox IDs
+  // Returns an array of all the node IDs.
   function getAllNodeIDs () {
-    const allNodeIDs = []
-    checkboxRelations.parents.forEach(parentID => {
-      allNodeIDs.push(parentID)
-    })
+    return getAllParentIDs().concat(getAllChildIDs())
+  }
+
+  // Returns an array of all the child node IDs.
+  function getAllChildIDs () {
+    const allChildNodeIDs = []
     for (const childID in checkboxRelations.children) {
-      allNodeIDs.push(childID)
+      allChildNodeIDs.push(childID)
     }
-    return allNodeIDs
+    return allChildNodeIDs
+  }
+
+  // Returns an array of all the parent node IDs.
+  function getAllParentIDs () {
+    const allParentNodeIDs = []
+    for (const parentID of checkboxRelations.parents) {
+      allParentNodeIDs.push(parentID)
+    }
+    return allParentNodeIDs
   }
 
   // Loads initial checkbox state from local storage if it exists. If it
