@@ -23,7 +23,7 @@ function addCheckboxRelations (data) {
     const allNodeIDs = getAllNodeIDs()
     for (const nodeID of allNodeIDs) {
       if (localStorage.getItem(nodeID) === null) {
-        revertCheckboxesToDefault()
+        generateInitialState()
         break
       } else {
         localStorage.getItem(nodeID) === 'true' ? 
@@ -33,9 +33,9 @@ function addCheckboxRelations (data) {
     }
   }
 
-  // Reverts to default checkbox configuration which is the first parent.
-  // Toggles checkboxes and overwrites local storage with default settings.
-  function revertCheckboxesToDefault () {
+  // Generates initial state by setting node attributes and initializing local
+  // storage.
+  function generateInitialState () {
     const numberOfParents = checkboxRelations.parents.length
     // We first toggle on the first parent...
     localStorage.setItem(checkboxRelations.parents[0], 'true')
