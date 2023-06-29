@@ -47,8 +47,8 @@ function addCheckboxRelations (data) {
       }
     }
     // We also check the other required local storage values.
-    if (localStorage.getItem(checkboxRelations.last_parent) === null ||
-      localStorage.getItem(checkboxRelations.last_fallback) === null) {
+    if (localStorage.getItem('last_parent') === null ||
+      localStorage.getItem('last_fallback') === null) {
       generateInitialState()
     }
   }
