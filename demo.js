@@ -17,7 +17,9 @@ const checkboxRelations2 = {
     'child3': [true, false, false],
     'child4': [false, false, true],
     'child5': [false, false, false]
-  }
+  },
+  last_parent: 'parent1',
+  last_fallback: [true, true, true, true, true]
 }
 
 const checkboxRelations = {
