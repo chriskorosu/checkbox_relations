@@ -19,8 +19,12 @@ function addCheckboxRelations (data) {
     return allNodeIDs
   }
 
+  // Loads initial checkbox state from local storage if it exists. If it
+  // doesn't, we call a function that creates a state using default settings.
   function initializeCheckboxes () {
     const allNodeIDs = getAllNodeIDs()
+    // We check the local storage of every node. If it's null, we break the
+    // loop and generate the initial state. Otherwise, we load it in.
     for (const nodeID of allNodeIDs) {
       if (localStorage.getItem(nodeID) === null) {
         generateInitialState()
@@ -30,6 +34,11 @@ function addCheckboxRelations (data) {
           document.getElementById(nodeID).checked = true :
           document.getElementById(nodeID).checked = false
       }
+    }
+    // We also check the other required local storage values.
+    if (localStorage.getItem(checkboxRelations.last_parent) === null ||
+      localStorage.getItem(checkboxRelations.last_fallback) === null) {
+      generateInitialState()
     }
   }
 
@@ -51,6 +60,11 @@ function addCheckboxRelations (data) {
       document.getElementById(childID).checked = requiredState
       localStorage.setItem(childID, requiredState.toString())
     }
+    // We also set initial parent ...
+    localStorage.setItem('last_parent', checkboxRelations.last_parent)
+    // ... and initial fallback configuration.
+    localStorage.setItem('last_fallback',
+      JSON.stringify(checkboxRelations.last_fallback))
   }
 
   function attachEventHandlers () {
