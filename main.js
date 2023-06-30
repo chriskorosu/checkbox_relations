@@ -212,12 +212,12 @@ function addCheckboxRelations (data) {
         if (parentSatisfied) {
           // At this point we've iterated over all children,
           // which means we've found the right parent.
-          let currentlyCheckedParent
+          let oldParent
           lastParent.checked ?
-            currentlyCheckedParent = lastParent :
-            currentlyCheckedParent = document.getElementById('custom')
-          currentlyCheckedParent.checked = false
-          localStorage.setItem(currentlyCheckedParent.id, 'false')
+            oldParent = lastParent :
+            oldParent = document.getElementById('custom')
+          oldParent.checked = false
+          localStorage.setItem(oldParent.id, 'false')
           currentParent.checked = true
           localStorage.setItem(parentID, 'true')
           localStorage.setItem('last_parent', parentID)
