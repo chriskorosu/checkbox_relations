@@ -176,7 +176,56 @@ function addCheckboxRelations (data) {
   }
 
   function handleChildInput (event) {
-    console.log('child handled')
+    const targetChild = event.target
+    for (const parentID of checkboxRelations.parents) {
+      const parentIndex = checkboxRelations.parents.indexOf(parentID)
+      const parentRequiredTargetChildState =
+        checkboxRelations.children[targetChild.id][parentIndex]
+      const allParentIDs = getAllParentIDs()
+      const fallbackID = allParentIDs[allParentIDs.length - 1]
+      if (parentID === fallbackID) {
+        const fallbackNode = document.getElementById(fallbackID)
+        const allChildIDs = getAllChildIDs()
+        const childIndex = allChildIDs.indexOf(targetChild.id)
+        const lastFallback = JSON.parse(localStorage.getItem('last_fallback'))
+        lastFallback[childIndex] = targetChild.checked
+        localStorage.setItem('last_fallback', JSON.stringify(lastFallback))
+        if (!fallbackNode.checked) {
+          fallbackNode.checked = true
+          localStorage.setItem(fallbackID, 'true')
+        }
+      } else if (targetChild.checked === parentRequiredTargetChildState) {
+        const lastParentID = localStorage.getItem('last_parent')
+        const lastParent = document.getElementById(lastParentID)
+        const currentParent = document.getElementById(parentID)
+        let parentSatisfied = true
+        for (const childID in checkboxRelations.children) {
+          const currentChildState = document.getElementById(childID)
+          const requiredChildState =
+            checkboxRelations.children[childID][parentIndex]
+          if (currentChildState != requiredChildState) {
+            parentSatisfied = false
+            break
+          }
+        }
+        if (parentSatisfied) {
+          // At this point we've iterated over all children,
+          // which means we've found the right parent.
+          lastParent.checked = false
+          localStorage.setItem(lastParentID, 'false')
+          currentParent.checked = true
+          localStorage.setItem(parentID, 'true')
+          localStorage.setItem('last_parent', parentID)
+          break
+        }
+      } else { // if targetChild.checked !== parentRequiredTargetChildState
+        const currentParent = document.getElementById(parentID)
+        if (currentParent.checked) {
+          currentParent.checked = false
+          localStorage.setItem(parentID, 'false')
+        }
+      }
+    }
   }
 }
 
