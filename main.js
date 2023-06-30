@@ -193,13 +193,7 @@ function addCheckboxRelations (data) {
       const fallbackID = allParentIDs[allParentIDs.length - 1]
       if (parentID === fallbackID) {
         const fallback = document.getElementById(fallbackID)
-        const allChildIDs = getAllChildIDs()
-        const childIndex = allChildIDs.indexOf(targetChild.id)
-        const lastFallback = JSON.parse(
-          localStorage.getItem('last_fallback_state'))
-        lastFallback[childIndex] = targetChild.checked
-        localStorage.setItem('last_fallback_state',
-          JSON.stringify(lastFallback))
+        updateLastFallBackState(targetChild)
         if (!fallback.checked) {
           fallback.checked = true
           localStorage.setItem(fallbackID, 'true')
@@ -229,13 +223,7 @@ function addCheckboxRelations (data) {
             oldParent = document.getElementById('custom')
           oldParent.checked = false
           if (oldParent.id === 'custom') {
-            const allChildIDs = getAllChildIDs()
-            const childIndex = allChildIDs.indexOf(targetChild.id)
-            const lastFallback = JSON.parse(
-              localStorage.getItem('last_fallback_state'))
-            lastFallback[childIndex] = targetChild.checked
-            localStorage.setItem('last_fallback_state',
-              JSON.stringify(lastFallback))
+            updateLastFallBackState(targetChild)
           }
           localStorage.setItem(oldParent.id, 'false')
           currentParent.checked = true
@@ -251,6 +239,18 @@ function addCheckboxRelations (data) {
         }
       }
     }
+  }
+
+  // Updates last fallback state in local storage based on [targetChild:Node].
+  // Helper.
+  function updateLastFallBackState (targetChild) {
+    const allChildIDs = getAllChildIDs()
+    const childIndex = allChildIDs.indexOf(targetChild.id)
+    const lastFallbackState =
+      JSON.parse(localStorage.getItem('last_fallback_state'))
+    lastFallbackState[childIndex] = targetChild.checked
+    localStorage.setItem('last_fallback_state',
+      JSON.stringify(lastFallbackState))
   }
 }
 
