@@ -173,6 +173,7 @@ function addCheckboxRelations (data) {
           localStorage.setItem(fallbackID, 'true')
           if (child.checked != requiredChildState) {
             child.checked = requiredChildState
+            localStorage.setItem(child.id, requiredChildState.toString())
             // There's no need to store parent as the last parent id since we're
             // unchecking a parent, which means we checked it at some point,
             // which means we already saved this parent id as the last one at
@@ -221,10 +222,10 @@ function addCheckboxRelations (data) {
           lastNonFallbackParent.checked ?
             oldParent = lastNonFallbackParent :
             oldParent = document.getElementById('custom')
+          // if (oldParent.id === 'custom') {
+          //   updateLastFallBackState(targetChild)
+          // }
           oldParent.checked = false
-          if (oldParent.id === 'custom') {
-            updateLastFallBackState(targetChild)
-          }
           localStorage.setItem(oldParent.id, 'false')
           currentParent.checked = true
           localStorage.setItem(parentID, 'true')
