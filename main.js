@@ -201,7 +201,7 @@ function addCheckboxRelations (data) {
         const currentParent = document.getElementById(parentID)
         let parentSatisfied = true
         for (const childID in checkboxRelations.children) {
-          const currentChildState = document.getElementById(childID)
+          const currentChildState = document.getElementById(childID).checked
           const requiredChildState =
             checkboxRelations.children[childID][parentIndex]
           if (currentChildState != requiredChildState) {
