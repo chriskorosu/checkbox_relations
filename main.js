@@ -230,7 +230,7 @@ function addCheckboxRelations (data) {
           currentParent.checked = true
           localStorage.setItem(parentID, 'true')
           localStorage.setItem('last_non_fallback_parent', parentID)
-          updateAllStorageChildren()
+          updateStorageAllChildren()
           break
         }
       } else { // if targetChild.checked !== parentRequiredTargetChildState
@@ -244,12 +244,12 @@ function addCheckboxRelations (data) {
   }
 
   // Updates all children in local storage based on current node states.
-  function updateAllStorageChildren () {
+  function updateStorageAllChildren () {
     const allChildIDs = getAllChildIDs()
     for (let i = 0; i < allChildIDs.length; i++) {
       const currentChild = document.getElementById(allChildIDs[i])
       const currentChildStoredState = localStorage.getItem(currentChild.id)
-      if (currentChildStoredState != currentChild.checked) {
+      if (currentChildStoredState !== currentChild.checked) {
         localStorage.setItem(currentChild.id, currentChild.checked.toString())
       }
     }
