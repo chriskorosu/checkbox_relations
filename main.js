@@ -192,7 +192,7 @@ function addCheckboxRelations (data) {
       const allParentIDs = getAllParentIDs()
       const fallbackID = allParentIDs[allParentIDs.length - 1]
       if (parentID === fallbackID) {
-        const fallbackNode = document.getElementById(fallbackID)
+        const fallback = document.getElementById(fallbackID)
         const allChildIDs = getAllChildIDs()
         const childIndex = allChildIDs.indexOf(targetChild.id)
         const lastFallback = JSON.parse(
@@ -200,8 +200,8 @@ function addCheckboxRelations (data) {
         lastFallback[childIndex] = targetChild.checked
         localStorage.setItem('last_fallback_state',
           JSON.stringify(lastFallback))
-        if (!fallbackNode.checked) {
-          fallbackNode.checked = true
+        if (!fallback.checked) {
+          fallback.checked = true
           localStorage.setItem(fallbackID, 'true')
         }
       } else if (targetChild.checked === parentRequiredTargetChildState) {
