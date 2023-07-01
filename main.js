@@ -1,40 +1,22 @@
 function addCheckboxRelations (data) {
   let checkboxRelations = {}
 
+  // If no [data] is passed to the function, we do nothing. Otherwise,
+  // we initialize the checkbox nodes and attached event handlers to them.
+  // Pre-condition: [data] must be valid (no error checking is provided).
   if (data) {
+    // A structured clone is created of the data so that data mutation in one
+    // place doesn't affect the other instance.
     checkboxRelations = structuredClone(data)
     initializeCheckboxes()
     attachEventHandlers()
   }
 
-  // Returns an array of all the node IDs.
-  function getAllNodeIDs () {
-    return getAllParentIDs().concat(getAllChildIDs())
-  }
-
-  // Returns an array of all the child node IDs.
-  function getAllChildIDs () {
-    const allChildNodeIDs = []
-    for (const childID in checkboxRelations.children) {
-      allChildNodeIDs.push(childID)
-    }
-    return allChildNodeIDs
-  }
-
-  // Returns an array of all the parent node IDs.
-  function getAllParentIDs () {
-    const allParentNodeIDs = []
-    for (const parentID of checkboxRelations.parents) {
-      allParentNodeIDs.push(parentID)
-    }
-    return allParentNodeIDs
-  }
-
-  // Loads initial checkbox state from local storage if it exists. If it
-  // doesn't, we call a function that creates a state using default settings.
+  // Loads saved checkbox states from local storage if they exist. Otherwise,
+  // we call a helper function that creates an initial state.
   function initializeCheckboxes () {
     const allNodeIDs = getAllNodeIDs()
-    // We check the local storage of every node. If it's null, we break the
+    // We check local storage for every node. If it's null, we break the
     // loop and generate the initial state. Otherwise, we load it in.
     for (const nodeID of allNodeIDs) {
       if (localStorage.getItem(nodeID) === null) {
@@ -46,10 +28,24 @@ function addCheckboxRelations (data) {
           : document.getElementById(nodeID).checked = false
       }
     }
-    // We also check the other required local storage values.
+    // We also check a few other local storage values.
     if (localStorage.getItem('last_non_fallback_parent') === null ||
       localStorage.getItem('last_fallback_state') === null) {
       generateInitialState()
+    }
+  }
+
+  // Attaches event handlers to every parent and child node .
+  function attachEventHandlers () {
+    // We add an 'input' event listener on all parent nodes.
+    checkboxRelations.parents.forEach(parentID => {
+      const checkbox = document.getElementById(parentID)
+      checkbox.addEventListener('input', handleParentInput)
+    })
+    // We add an 'input' event listener on all child nodes.
+    for (const childID in checkboxRelations.children) {
+      const checkbox = document.getElementById(childID)
+      checkbox.addEventListener('input', handleChildInput)
     }
   }
 
@@ -79,19 +75,7 @@ function addCheckboxRelations (data) {
       JSON.stringify(checkboxRelations.last_fallback_state))
   }
 
-  function attachEventHandlers () {
-    // We add an 'input' event listener on all parent nodes.
-    checkboxRelations.parents.forEach(parentID => {
-      const checkbox = document.getElementById(parentID)
-      checkbox.addEventListener('input', handleParentInput)
-    })
-    // We add an 'input' event listener on all child nodes.
-    for (const childID in checkboxRelations.children) {
-      const checkbox = document.getElementById(childID)
-      checkbox.addEventListener('input', handleChildInput)
-    }
-  }
-
+  // Handles input on parent nodes.
   function handleParentInput (event) {
     const targetBox = event.target
     const allParentIDs = checkboxRelations.parents
@@ -183,6 +167,7 @@ function addCheckboxRelations (data) {
     }
   }
 
+  // Handles input on child nodes.
   function handleChildInput (event) {
     const targetChild = event.target
     for (const parentID of checkboxRelations.parents) {
@@ -238,6 +223,29 @@ function addCheckboxRelations (data) {
         }
       }
     }
+  }
+
+  // Returns an array of all the node IDs.
+  function getAllNodeIDs () {
+    return getAllParentIDs().concat(getAllChildIDs())
+  }
+
+  // Returns an array of all the child node IDs.
+  function getAllChildIDs () {
+    const allChildNodeIDs = []
+    for (const childID in checkboxRelations.children) {
+      allChildNodeIDs.push(childID)
+    }
+    return allChildNodeIDs
+  }
+
+  // Returns an array of all the parent node IDs.
+  function getAllParentIDs () {
+    const allParentNodeIDs = []
+    for (const parentID of checkboxRelations.parents) {
+      allParentNodeIDs.push(parentID)
+    }
+    return allParentNodeIDs
   }
 
   // Updates all children in local storage based on current node states.
