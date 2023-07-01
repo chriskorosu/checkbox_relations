@@ -4,3 +4,11 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   margin: 50px;
 }
+
+* {
+  cursor: inherit;
+}
+
+.clickable {
+  cursor: pointer;
+}
