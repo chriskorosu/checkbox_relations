@@ -41,9 +41,9 @@ function addCheckboxRelations (data) {
         generateInitialState()
         break
       } else {
-        localStorage.getItem(nodeID) === 'true' ? 
-          document.getElementById(nodeID).checked = true :
-          document.getElementById(nodeID).checked = false
+        localStorage.getItem(nodeID) === 'true'
+          ? document.getElementById(nodeID).checked = true
+          : document.getElementById(nodeID).checked = false
       }
     }
     // We also check the other required local storage values.
@@ -84,7 +84,7 @@ function addCheckboxRelations (data) {
     checkboxRelations.parents.forEach(parentID => {
       const checkbox = document.getElementById(parentID)
       checkbox.addEventListener('input', handleParentInput)
-    });
+    })
     // We add an 'input' event listener on all child nodes.
     for (const childID in checkboxRelations.children) {
       const checkbox = document.getElementById(childID)
@@ -115,7 +115,7 @@ function addCheckboxRelations (data) {
           'last_fallback_state'))
         for (let i = 0; i < allChildIDs.length; i++) {
           const child = document.getElementById(allChildIDs[i])
-          if (child.checked != fallbackValues[i]) {
+          if (child.checked !== fallbackValues[i]) {
             child.checked = fallbackValues[i]
             localStorage.setItem(allChildIDs[i], fallbackValues[i].toString())
           }
@@ -127,18 +127,17 @@ function addCheckboxRelations (data) {
           const child = document.getElementById(allChildIDs[i])
           const requiredChildState =
             checkboxRelations.children[child.id][parentIndex]
-          if (child.checked != requiredChildState) {
+          if (child.checked !== requiredChildState) {
             child.checked = requiredChildState
             localStorage.setItem(allChildIDs[i], requiredChildState.toString())
           }
         }
       }
-
     } else { // if targetBox.unchecked
       // We store the checked state under the parent's id.
       localStorage.setItem(targetBox.id, 'false')
       // If target is the fallback...
-      if (targetBox.id === fallbackID ) {
+      if (targetBox.id === fallbackID) {
         const oldChildStates = []
         const lastNonFallbackParentID =
           localStorage.getItem('last_non_fallback_parent')
@@ -153,7 +152,7 @@ function addCheckboxRelations (data) {
           const requiredChildState =
             checkboxRelations.children[child.id][lastNonFallbackParentIndex]
           oldChildStates.push(child.checked)
-          if (child.checked != requiredChildState) {
+          if (child.checked !== requiredChildState) {
             child.checked = requiredChildState
             localStorage.setItem(allChildIDs[i], requiredChildState.toString())
           }
@@ -171,7 +170,7 @@ function addCheckboxRelations (data) {
           const requiredChildState = lastFallback[i]
           document.getElementById(fallbackID).checked = true
           localStorage.setItem(fallbackID, 'true')
-          if (child.checked != requiredChildState) {
+          if (child.checked !== requiredChildState) {
             child.checked = requiredChildState
             localStorage.setItem(child.id, requiredChildState.toString())
             // There's no need to store parent as the last parent id since we're
@@ -211,7 +210,7 @@ function addCheckboxRelations (data) {
           const currentChildState = document.getElementById(childID).checked
           const requiredChildState =
             checkboxRelations.children[childID][parentIndex]
-          if (currentChildState != requiredChildState) {
+          if (currentChildState !== requiredChildState) {
             parentSatisfied = false
             break
           }
@@ -220,12 +219,9 @@ function addCheckboxRelations (data) {
           // At this point we've iterated over all children,
           // which means we've found the right parent.
           let oldParent
-          lastNonFallbackParent.checked ?
-            oldParent = lastNonFallbackParent :
-            oldParent = document.getElementById('custom')
-          // if (oldParent.id === 'custom') {
-          //   updateLastFallBackState(targetChild)
-          // }
+          lastNonFallbackParent.checked
+            ? oldParent = lastNonFallbackParent
+            : oldParent = document.getElementById('custom')
           oldParent.checked = false
           localStorage.setItem(oldParent.id, 'false')
           currentParent.checked = true
