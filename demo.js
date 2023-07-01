@@ -1,7 +1,7 @@
 import { addCheckboxRelations } from './main.js'
 
 const checkboxRelations = {
-  parents: ['parent1', 'parent2', 'parent3', 'custom'],
+  parents: ['parent1', 'parent2', 'parent3', 'fallback'],
   children: {
     child1: [true, false, false],
     child2: [true, false, false],

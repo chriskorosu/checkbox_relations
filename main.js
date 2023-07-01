@@ -221,7 +221,7 @@ function addCheckboxRelations (data) {
           let oldParent
           lastNonFallbackParent.checked
             ? oldParent = lastNonFallbackParent
-            : oldParent = document.getElementById('custom')
+            : oldParent = document.getElementById('fallback')
           oldParent.checked = false
           localStorage.setItem(oldParent.id, 'false')
           currentParent.checked = true
